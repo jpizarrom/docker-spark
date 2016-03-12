@@ -1,4 +1,4 @@
-sequenceiq-spark-master:
+spark-yarn-master:
   command: '/etc/bootstrap-master.sh -d'
   image: jpizarrom/spark-yarn:1.6.0-master
   ports:
@@ -9,7 +9,7 @@ sequenceiq-spark-master:
   container_name: sandbox
   net: my-net
 
-sequenceiq-spark-nodemanager:
+spark-yarn-nodemanager:
   command: '/etc/bootstrap-nodemanager.sh -d'
   image: jpizarrom/spark-yarn:1.6.0-nodemanager
   ports:
@@ -19,10 +19,8 @@ sequenceiq-spark-nodemanager:
   hostname: slave1
   container_name: slave1
   net: my-net
-  environment:
-    MASTER_HOSTNAME: sandbox
 
-sequenceiq-spark-nodemanager2:
+spark-yarn-nodemanager2:
   command: '/etc/bootstrap-nodemanager.sh -d'
   image: jpizarrom/spark-yarn:1.6.0-nodemanager
   ports:
@@ -32,14 +30,10 @@ sequenceiq-spark-nodemanager2:
   hostname: slave2
   container_name: slave2
   net: my-net
-  environment:
-    MASTER_HOSTNAME: sandbox
 
-sequenceiq-spark-nodemanager3:
+spark-yarn-nodemanager3:
   command: '/etc/bootstrap-nodemanager.sh -d'
   image: jpizarrom/spark-yarn:1.6.0-nodemanager
   hostname: slave3
   container_name: slave3
   net: my-net
-  environment:
-    MASTER_HOSTNAME: sandbox

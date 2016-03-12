@@ -8,13 +8,14 @@ spark-yarn-master:
     - '8042:8042'
     - '8088:8088'
     - '50070:50070'
+
 spark-yarn-nodemanager:
   image: 'jpizarrom/spark-yarn:1.6.0-nodemanager'
   command: '/etc/bootstrap-nodemanager.sh -d'
   environment:
     - SPARK_PUBLIC_DNS=$DOCKERCLOUD_CONTAINER_FQDN
-  links:
-    - 'jpizarrom-spark-yarn-master:sandbox'
+  extra_hosts:
+    - 'sandbox:172.17.0.6'
   ports:
     - '8042'
   target_num_containers: 2
