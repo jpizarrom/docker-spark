@@ -14,39 +14,23 @@ start nodemanager
 docker-compose up spark-yarn-nodemanager
 ```
 
+start client
+```
+docker-compose up spark-yarn-client
+```
+
 start more nodemanager
 ```
 docker-compose up spark-yarn-nodemanager2
 docker-compose up spark-yarn-nodemanager3
 ```
 
-# docker-cloud.yml
-replace 172.17.0.6 with your master ip
-```
-spark-yarn-master:
-  image: 'jpizarrom/spark-yarn:1.6.0-master'
-  command: '/etc/bootstrap-master.sh -d'
-  environment:
-    - SPARK_PUBLIC_DNS=$DOCKERCLOUD_CONTAINER_FQDN
-  hostname: sandbox
-  ports:
-    - '8042:8042'
-    - '8088:8088'
-    - '50070:50070'
-
-spark-yarn-nodemanager:
-  image: 'jpizarrom/spark-yarn:1.6.0-nodemanager'
-  command: '/etc/bootstrap-nodemanager.sh -d'
-  environment:
-    - SPARK_PUBLIC_DNS=$DOCKERCLOUD_CONTAINER_FQDN
-  extra_hosts:
-    - 'sandbox:172.17.0.6'
-  ports:
-    - '8042'
-  target_num_containers: 2
-```
+# [docker-cloud.yml](docker-cloud.yml)
+replace sandbox ip with your master ip
 
 ## Testing
+
+in spark-yarn-client
 
 ### YARN-cluster mode
 
@@ -64,6 +48,7 @@ spark-submit \
 --driver-memory 1g \
 --executor-memory 1g \
 --executor-cores 1 \
+--properties-file /spark-defaults.conf \
 $SPARK_HOME/lib/spark-examples-1.6.0-hadoop2.6.0.jar
 ```
 
@@ -77,5 +62,15 @@ spark-submit \
 --driver-memory 1g \
 --executor-memory 1g \
 --executor-cores 1 \
+--properties-file /spark-defaults.conf \
 $SPARK_HOME/lib/spark-examples-1.6.0-hadoop2.6.0.jar
+```
+
+```
+cd $HADOOP_PREFIX
+# run the mapreduce
+bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.0.jar grep input output 'dfs[a-z.]+'
+
+# check the output
+bin/hdfs dfs -cat output/*
 ```

@@ -20,7 +20,6 @@ service sshd start
 $HADOOP_PREFIX/sbin/yarn-daemon.sh start nodemanager
 
 
-
 CMD=${1:-"exit 0"}
 if [[ "$CMD" == "-d" ]];
 then
