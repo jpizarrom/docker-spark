@@ -48,7 +48,6 @@ spark-submit \
 --driver-memory 1g \
 --executor-memory 1g \
 --executor-cores 1 \
---properties-file /spark-defaults.conf \
 $SPARK_HOME/lib/spark-examples-1.6.0-hadoop2.6.0.jar
 ```
 
@@ -59,10 +58,9 @@ Estimating Pi (yarn-client mode):
 spark-submit \
 --class org.apache.spark.examples.SparkPi \
 --master yarn-client \
---driver-memory 1g \
---executor-memory 1g \
+--driver-memory 512m \
+--executor-memory 256m \
 --executor-cores 1 \
---properties-file /spark-defaults.conf \
 $SPARK_HOME/lib/spark-examples-1.6.0-hadoop2.6.0.jar
 ```
 

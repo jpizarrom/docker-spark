@@ -2,45 +2,101 @@ spark-yarn-master:
   command: '-d'
   image: jpizarrom/spark-yarn:1.6.0-master
   ports:
+    - '4040'
     - '8042:8042'
+    - '8080'
     - '8088:8088'
+    - '8081'
     - '50070:50070'
+  expose:
+    - '4040'
+    - '7001'
+    - '7002'
+    - '7003'
+    - '7004'
+    - '7005'
+    - '7006'
+    - '7007'
+    - '7077'
+    - '8080'
+    - '8888'
+    - '9000'
   hostname: sandbox
   container_name: sandbox
   net: my-net
-  # mem_limit: 2048m
+  mem_limit: 1024m
 
 spark-yarn-nodemanager:
   command: '-d'
   image: jpizarrom/spark-yarn:1.6.0-nodemanager
   ports:
+    - '4040'
     - '8042'
-    - '8088'
-    - '50070'
+    - '8080'
+    - '8081'
+  expose:
+    - '7001'
+    - '7002'
+    - '7003'
+    - '7004'
+    - '7005'
+    - '7006'
+    - '7007'
+    - '7077'
+    - '8888'
+    - '9000'
   hostname: slave1
   container_name: slave1
   net: my-net
-  # mem_limit: 2048m
+  mem_limit: 1024m
 
 spark-yarn-nodemanager2:
   command: '-d'
   image: jpizarrom/spark-yarn:1.6.0-nodemanager
   ports:
+    - '4040'
     - '8042'
-    - '8088'
-    - '50070'
+    - '8080'
+    - '8081'
+  expose:
+    - '7001'
+    - '7002'
+    - '7003'
+    - '7004'
+    - '7005'
+    - '7006'
+    - '7007'
+    - '7077'
+    - '8888'
+    - '9000'
   hostname: slave2
   container_name: slave2
   net: my-net
-  # mem_limit: 2048m
+  mem_limit: 1024m
 
 spark-yarn-nodemanager3:
   command: '-d'
   image: jpizarrom/spark-yarn:1.6.0-nodemanager
+  ports:
+    - '4040'
+    - '8042'
+    - '8080'
+    - '8081'
+  expose:
+    - '7001'
+    - '7002'
+    - '7003'
+    - '7004'
+    - '7005'
+    - '7006'
+    - '7007'
+    - '7077'
+    - '8888'
+    - '9000'
   hostname: slave3
   container_name: slave3
   net: my-net
-  # mem_limit: 2048m
+  mem_limit: 1024m
 
 spark-yarn-client:
   command: '-d'
@@ -48,21 +104,44 @@ spark-yarn-client:
   hostname: client
   container_name: client
   net: my-net
-  # mem_limit: 2048m
-
-spark-yarn-client2:
-  command: '-d'
-  image: jpizarrom/spark-yarn:1.6.0-client
-  hostname: client2
-  container_name: client2
-  net: my-net
-  # mem_limit: 2048m
+  mem_limit: 1024m
+  ports:
+    - '4040'
+    - '8042'
+    - '8080'
+    - '8081'
+  expose:
+    - '7001'
+    - '7002'
+    - '7003'
+    - '7004'
+    - '7005'
+    - '7006'
+    - '7007'
+    - '7077'
+    - '8888'
+    - '9000'
 
 spark-yarn-zeppelin:
   image: jpizarrom/spark-yarn:1.6.0-zeppelin
-  ports:
-    - '8082'
   hostname: zeppelin
   container_name: zeppelin
   net: my-net
-  # mem_limit: 2048m
+  mem_limit: 3072m
+  ports:
+    - '4040'
+    - '8042'
+    - '8080'
+    - '8081'
+    - '8082:8082'
+  expose:
+    - '7001'
+    - '7002'
+    - '7003'
+    - '7004'
+    - '7005'
+    - '7006'
+    - '7007'
+    - '7077'
+    - '8888'
+    - '9000'
