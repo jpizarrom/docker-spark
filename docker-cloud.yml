@@ -1,123 +1,98 @@
 spark-yarn-master:
   image: 'jpizarrom/spark-yarn:1.6.0-master'
   command: '-d'
-  # mem_limit: 2048m
+  mem_limit: 1024m
   environment:
     - SPARK_PUBLIC_DNS=$DOCKERCLOUD_CONTAINER_FQDN
-    - SPARK_MASTER_OPTS="-Dspark.driver.port=7001 -Dspark.fileserver.port=7003 -Dspark.broadcast.port=7004 -Dspark.replClassServer.port=7005 -Dspark.blockManager.port=7006 -Dspark.executor.port=7007 -Dspark.ui.port=4040 -Dspark.broadcast.factory=org.apache.spark.broadcast.HttpBroadcastFactory"
-    - SPARK_WORKER_OPTS="-Dspark.driver.port=7001 -Dspark.fileserver.port=7003 -Dspark.broadcast.port=7004 -Dspark.replClassServer.port=7005 -Dspark.blockManager.port=7006 -Dspark.executor.port=7007 -Dspark.ui.port=4040 -Dspark.broadcast.factory=org.apache.spark.broadcast.HttpBroadcastFactory"
     - SPARK_MASTER_PORT=7077
     - SPARK_MASTER_WEBUI_PORT=8080
     - SPARK_WORKER_PORT=8888
     - SPARK_WORKER_WEBUI_PORT=8081
+    - YARN_RESOURCEMANAGER_HEAPSIZE=256
+    - YARN_PROXYSERVER_HEAPSIZE=128
+    - YARN_NODEMANAGER_HEAPSIZE=256
+    - HADOOP_JOB_HISTORYSERVER_HEAPSIZE=256
+    - HADOOP_NAMENODE_HEAPSIZE=256
+    - HADOOP_DATANODE_HEAPSIZE=128
   hostname: sandbox
   ports:
-    - '8042:8042'
-    - '8088:8088'
-    - '50070:50070'
-  expose:
     - '4040'
-    - '7001'
-    - '7002'
-    - '7003'
-    - '7004'
-    - '7005'
-    - '7006'
-    - '7007'
-    - '7077'
+    - '8042:8042'
     - '8080'
-    - '8888'
+    - '8088:8088'
+    - '8081'
+    - '50070:50070'
 
 spark-yarn-nodemanager:
   image: 'jpizarrom/spark-yarn:1.6.0-nodemanager'
   command: '-d'
-  # mem_limit: 2048m
+  mem_limit: 1024m
   environment:
     - SPARK_PUBLIC_DNS=$DOCKERCLOUD_CONTAINER_FQDN
-    - SPARK_MASTER_OPTS="-Dspark.driver.port=7001 -Dspark.fileserver.port=7003 -Dspark.broadcast.port=7004 -Dspark.replClassServer.port=7005 -Dspark.blockManager.port=7006 -Dspark.executor.port=7007 -Dspark.ui.port=4040 -Dspark.broadcast.factory=org.apache.spark.broadcast.HttpBroadcastFactory"
-    - SPARK_WORKER_OPTS="-Dspark.driver.port=7001 -Dspark.fileserver.port=7003 -Dspark.broadcast.port=7004 -Dspark.replClassServer.port=7005 -Dspark.blockManager.port=7006 -Dspark.executor.port=7007 -Dspark.ui.port=4040 -Dspark.broadcast.factory=org.apache.spark.broadcast.HttpBroadcastFactory"
     - SPARK_MASTER_PORT=7077
     - SPARK_MASTER_WEBUI_PORT=8080
     - SPARK_WORKER_PORT=8888
     - SPARK_WORKER_WEBUI_PORT=8081
+    - YARN_RESOURCEMANAGER_HEAPSIZE=256
+    - YARN_PROXYSERVER_HEAPSIZE=128
     - YARN_NODEMANAGER_HEAPSIZE=256
+    - HADOOP_JOB_HISTORYSERVER_HEAPSIZE=256
+    - HADOOP_NAMENODE_HEAPSIZE=256
+    - HADOOP_DATANODE_HEAPSIZE=128
   extra_hosts:
-    - 'sandbox:172.17.0.9'
+    - 'sandbox:172.17.0.6'
   ports:
+    - '4040'
     - '8042'
+    - '8080'
     - '8081'
   target_num_containers: 2
-  expose:
-    - '4040'
-    - '7001'
-    - '7002'
-    - '7003'
-    - '7004'
-    - '7005'
-    - '7006'
-    - '7007'
-    - '7077'
-    - '8080'
-    - '8888'
 
 spark-yarn-client:
   image: 'jpizarrom/spark-yarn:1.6.0-client'
   command: '-d'
-  # mem_limit: 2048m
+  mem_limit: 1024m
   environment:
     - SPARK_PUBLIC_DNS=$DOCKERCLOUD_CONTAINER_FQDN
-    - SPARK_MASTER_OPTS="-Dspark.driver.port=7001 -Dspark.fileserver.port=7003 -Dspark.broadcast.port=7004 -Dspark.replClassServer.port=7005 -Dspark.blockManager.port=7006 -Dspark.executor.port=7007 -Dspark.ui.port=4040 -Dspark.broadcast.factory=org.apache.spark.broadcast.HttpBroadcastFactory"
-    - SPARK_WORKER_OPTS="-Dspark.driver.port=7001 -Dspark.fileserver.port=7003 -Dspark.broadcast.port=7004 -Dspark.replClassServer.port=7005 -Dspark.blockManager.port=7006 -Dspark.executor.port=7007 -Dspark.ui.port=4040 -Dspark.broadcast.factory=org.apache.spark.broadcast.HttpBroadcastFactory"
     - SPARK_MASTER_PORT=7077
     - SPARK_MASTER_WEBUI_PORT=8080
     - SPARK_WORKER_PORT=8888
     - SPARK_WORKER_WEBUI_PORT=8081
+    - YARN_RESOURCEMANAGER_HEAPSIZE=256
+    - YARN_PROXYSERVER_HEAPSIZE=128
+    - YARN_NODEMANAGER_HEAPSIZE=256
+    - HADOOP_JOB_HISTORYSERVER_HEAPSIZE=256
+    - HADOOP_NAMENODE_HEAPSIZE=256
+    - HADOOP_DATANODE_HEAPSIZE=128
   extra_hosts:
-    - 'sandbox:172.17.0.9'
+    - 'sandbox:172.17.0.6'
   ports:
-    - '8042'
-    - '8081'
-  expose:
     - '4040'
-    - '7001'
-    - '7002'
-    - '7003'
-    - '7004'
-    - '7005'
-    - '7006'
-    - '7007'
-    - '7077'
+    - '8042'
     - '8080'
-    - '8888'
+    - '8081'
 
 spark-yarn-zeppelin:
   image: 'jpizarrom/spark-yarn:1.6.0-zeppelin'
   # command: '-d'
-  # mem_limit: 2048m
+  mem_limit: 3072m
   environment:
     - SPARK_PUBLIC_DNS=$DOCKERCLOUD_CONTAINER_FQDN
-    - SPARK_MASTER_OPTS="-Dspark.driver.port=7001 -Dspark.fileserver.port=7003 -Dspark.broadcast.port=7004 -Dspark.replClassServer.port=7005 -Dspark.blockManager.port=7006 -Dspark.executor.port=7007 -Dspark.ui.port=4040 -Dspark.broadcast.factory=org.apache.spark.broadcast.HttpBroadcastFactory"
-    - SPARK_WORKER_OPTS="-Dspark.driver.port=7001 -Dspark.fileserver.port=7003 -Dspark.broadcast.port=7004 -Dspark.replClassServer.port=7005 -Dspark.blockManager.port=7006 -Dspark.executor.port=7007 -Dspark.ui.port=4040 -Dspark.broadcast.factory=org.apache.spark.broadcast.HttpBroadcastFactory"
     - SPARK_MASTER_PORT=7077
     - SPARK_MASTER_WEBUI_PORT=8080
     - SPARK_WORKER_PORT=8888
     - SPARK_WORKER_WEBUI_PORT=8081
-    - SPARK_SUBMIT_OPTIONS=--properties-file /spark-defaults.conf
+    - YARN_RESOURCEMANAGER_HEAPSIZE=256
+    - YARN_PROXYSERVER_HEAPSIZE=128
+    - YARN_NODEMANAGER_HEAPSIZE=256
+    - HADOOP_JOB_HISTORYSERVER_HEAPSIZE=256
+    - HADOOP_NAMENODE_HEAPSIZE=256
+    - HADOOP_DATANODE_HEAPSIZE=128
   extra_hosts:
-    - 'sandbox:172.17.0.9'
+    - 'sandbox:172.17.0.6'
   ports:
+    - '4040'
     - '8042'
+    - '8080'
     - '8081'
     - '8082'
-  expose:
-    - '4040'
-    - '7001'
-    - '7002'
-    - '7003'
-    - '7004'
-    - '7005'
-    - '7006'
-    - '7007'
-    - '7077'
-    - '8080'
-    - '8888'
