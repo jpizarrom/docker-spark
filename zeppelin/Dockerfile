@@ -15,7 +15,7 @@
 # This image relies on the zeppelin-build image to get the zeppelin
 # binaries built, and the Makefile to put it in this directory.
 
-FROM jpizarrom/spark-yarn:1.6.0-client
+FROM jpizarrom/spark-yarn:1.6.0-client-0.0.1
 
 ENV ZEPPELIN_VER  0.5.6-incubating
 

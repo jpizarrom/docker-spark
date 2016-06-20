@@ -3,7 +3,7 @@
 <configuration>
   <property>
       <name>fs.default.name</name>
-      <value>hdfs://sandbox:9000</value>
+      <value>hdfs://HOSTNAME:9000</value>
   </property>
   <property>
       <name>dfs.client.use.legacy.blockreader</name>
